@@ -13295,6 +13295,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['plans'],
@@ -13303,7 +13305,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             stripeEmail: '',
             stripeToken: '',
-            plan: 1
+            plan: 1,
+            status: false
         };
     },
     created: function created() {
@@ -13320,8 +13323,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.stripeEmail = _token.email;
                 _this.stripeToken = _token.id;
 
-                axios.post('/purchases', _this.$data).then(function (response) {
-                    return alert('Complete');
+                axios.post('/purchases', _this.$data).then(function () {
+                    return alert('Complete! Thanks for your payment!');
+                }).catch(function (error) {
+                    return _this.status = error.response.data.status;
                 });
             }
         });
@@ -13449,7 +13454,20 @@ var render = function() {
         }
       },
       [_vm._v("Subscribe")]
-    )
+    ),
+    _vm._v(" "),
+    _c("p", {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.status,
+          expression: "status"
+        }
+      ],
+      staticClass: "help is-danger",
+      domProps: { textContent: _vm._s(_vm.status) }
+    })
   ])
 }
 var staticRenderFns = []

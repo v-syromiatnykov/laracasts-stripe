@@ -11,6 +11,8 @@
         </select>
 
         <button type="submit" @click.prevent="subscribe">Subscribe</button>
+
+        <p class="help is-danger" v-show="status" v-text="status"></p>
     </form>
 </template>
 
@@ -22,7 +24,8 @@
             return {
                 stripeEmail: '',
                 stripeToken: '',
-                plan: 1
+                plan: 1,
+                status: false
             }
         },
 
@@ -39,7 +42,8 @@
                     this.stripeToken = token.id;
 
                     axios.post('/purchases', this.$data)
-                        .then(response => alert('Complete'));
+                        .then(() => alert('Complete! Thanks for your payment!'))
+                        .catch(error => this.status = error.response.data.status);
                 }
             });
         },
