@@ -19,7 +19,7 @@
         <div id="app">
             <h1>By my book for $25</h1>
 
-            <checkout-form></checkout-form>
+            <checkout-form :products="{{ $products }}"></checkout-form>
         </div>
 
         <script src="https://checkout.stripe.com/checkout.js"></script>
