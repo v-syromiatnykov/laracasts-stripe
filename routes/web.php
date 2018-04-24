@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    $products = App\Product::all();
+//Route::get('/', function () {
+//    $products = App\Product::all();
+//
+//    return view('welcome', compact('products'));
+//});
 
-    return view('welcome', compact('products'));
+Route::get('/', function () {
+    $plans = App\Plan::all();
+
+    return view('welcome', compact('plans'));
 });
 
-Route::post('/purchases', 'PurchasesController@store');
+//Route::post('/purchases', 'PurchasesController@store');
+Route::post('/purchases', 'SubscriptionsController@store');

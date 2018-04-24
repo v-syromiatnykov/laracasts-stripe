@@ -4,25 +4,25 @@
         <input type="hidden" id="stripeToken" v-model="stripeToken">
         <input type="hidden" id="stripeEmail" v-model="stripeEmail">
 
-        <select name="product" v-model="product">
-            <option v-for="product in products" :value="product.id">
-                {{ product.name }} &mdash; ${{ product.price / 100 }}
+        <select name="plan" v-model="plan">
+            <option v-for="plan in plans" :value="plan.id">
+                {{ plan.name }} &mdash; ${{ plan.price / 100 }}
             </option>
         </select>
 
-        <button type="submit" @click.prevent="buy">Buy Me Book</button>
+        <button type="submit" @click.prevent="subscribe">Subscribe</button>
     </form>
 </template>
 
 <script>
     export default {
-        props: ['products'],
+        props: ['plans'],
 
         data() {
             return {
                 stripeEmail: '',
                 stripeToken: '',
-                product: 1
+                plan: 1
             }
         },
 
@@ -31,6 +31,7 @@
                 key: Laracasts.stripeKey,
                 image: "https://stripe.com/img/documentation/checkout/marketplace.png",
                 locale: "auto",
+                panelLabel: "Subscribe For",
                 token: (token) => {
                     console.log(token);
 
@@ -44,19 +45,19 @@
         },
 
         methods: {
-            buy() {
-                let product = this.findProductById(this.product);
+            subscribe() {
+                let plan = this.findPlanById(this.plan);
 
                 this.stripe.open({
-                    name: product.name,
-                    description: product.description,
+                    name: plan.name,
+                    description: plan.name,
                     zipCode: true,
-                    amount: product.price
+                    amount: plan.price
                 });
             },
 
-            findProductById(id) {
-                return this.products.find(product => product.id === id);
+            findPlanById(id) {
+                return this.plans.find(plan => plan.id === id);
             }
         }
     }

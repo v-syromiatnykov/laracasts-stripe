@@ -13297,13 +13297,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['products'],
+    props: ['plans'],
 
     data: function data() {
         return {
             stripeEmail: '',
             stripeToken: '',
-            product: 1
+            plan: 1
         };
     },
     created: function created() {
@@ -13313,6 +13313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             key: Laracasts.stripeKey,
             image: "https://stripe.com/img/documentation/checkout/marketplace.png",
             locale: "auto",
+            panelLabel: "Subscribe For",
             token: function token(_token) {
                 console.log(_token);
 
@@ -13328,19 +13329,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        buy: function buy() {
-            var product = this.findProductById(this.product);
+        subscribe: function subscribe() {
+            var plan = this.findPlanById(this.plan);
 
             this.stripe.open({
-                name: product.name,
-                description: product.description,
+                name: plan.name,
+                description: plan.name,
                 zipCode: true,
-                amount: product.price
+                amount: plan.price
             });
         },
-        findProductById: function findProductById(id) {
-            return this.products.find(function (product) {
-                return product.id === id;
+        findPlanById: function findPlanById(id) {
+            return this.plans.find(function (plan) {
+                return plan.id === id;
             });
         }
     }
@@ -13404,11 +13405,11 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.product,
-            expression: "product"
+            value: _vm.plan,
+            expression: "plan"
           }
         ],
-        attrs: { name: "product" },
+        attrs: { name: "plan" },
         on: {
           change: function($event) {
             var $$selectedVal = Array.prototype.filter
@@ -13419,19 +13420,17 @@ var render = function() {
                 var val = "_value" in o ? o._value : o.value
                 return val
               })
-            _vm.product = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
+            _vm.plan = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
           }
         }
       },
-      _vm._l(_vm.products, function(product) {
-        return _c("option", { domProps: { value: product.id } }, [
+      _vm._l(_vm.plans, function(plan) {
+        return _c("option", { domProps: { value: plan.id } }, [
           _vm._v(
             "\n            " +
-              _vm._s(product.name) +
+              _vm._s(plan.name) +
               " — $" +
-              _vm._s(product.price / 100) +
+              _vm._s(plan.price / 100) +
               "\n        "
           )
         ])
@@ -13445,11 +13444,11 @@ var render = function() {
         on: {
           click: function($event) {
             $event.preventDefault()
-            return _vm.buy($event)
+            return _vm.subscribe($event)
           }
         }
       },
-      [_vm._v("Buy Me Book")]
+      [_vm._v("Subscribe")]
     )
   ])
 }
