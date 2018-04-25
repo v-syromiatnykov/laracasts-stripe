@@ -29,6 +29,11 @@ class User extends Authenticatable
         ]);
     }
 
+    public function subscription()
+    {
+        return new Subscription($this);
+    }
+
     public function isSubscribed()
     {
         return !! $this->stripe_active;
