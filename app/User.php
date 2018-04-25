@@ -2,13 +2,13 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
 
     protected $guarded = [];
 
@@ -21,11 +21,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function activate($customerId)
+    public function activate($customerId = null)
     {
         return $this->update([
-            'stripe_id' => $customerId,
-            'stripe_active' => true
+            'stripe_id' => $customerId ?? $this->stripe_id,
+            'stripe_active' => true,
+            'subscription_end_at' => 0
+        ]);
+    }
+
+    public function deactivate()
+    {
+        return $this->update([
+            'stripe_active' => false,
+            'subscription_end_at' => Carbon::now()
         ]);
     }
 

@@ -36,6 +36,5 @@ class RegistrationForm extends FormRequest
         $plan = Plan::findOrFail($this->plan);
 
         $this->user()->subscription()->create($plan, $this->stripeToken);
-
     }
 }

@@ -11,3 +11,5 @@ Route::post('/purchases', 'SubscriptionsController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/stripe/webhook', 'WebhooksController@handle');
