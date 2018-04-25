@@ -14,5 +14,8 @@
         "cross-env": "^5.1",
         "laravel-mix": "^2.0",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "bootstrap": "^4.1.0"
     }
 }

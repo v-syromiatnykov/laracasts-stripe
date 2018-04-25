@@ -9,14 +9,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -26,4 +20,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function activate($customerId)
+    {
+        return $this->update([
+            'stripe_id' => $customerId,
+            'stripe_active' => true
+        ]);
+    }
+
+    public function isSubscribed()
+    {
+        return !! $this->stripe_active;
+    }
 }

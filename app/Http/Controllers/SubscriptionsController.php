@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Plan;
-use Stripe\Charge;
 use Stripe\Customer;
 
 class SubscriptionsController extends Controller
@@ -19,11 +18,15 @@ class SubscriptionsController extends Controller
                 'plan' => $plan->name,
             ]);
         } catch (\Exception $e) {
-            return response()->json(['status' => $e->getMessage()], 422);
+            return response()->json([
+                'status' => $e->getMessage()
+            ], 422);
         }
 
+        request()->user()->activate($customer->id);
 
-
-        return 'All done';
+        return [
+            'status' => 'Success!'
+        ];
     }
 }

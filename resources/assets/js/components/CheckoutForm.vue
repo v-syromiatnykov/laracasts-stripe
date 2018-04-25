@@ -35,6 +35,7 @@
                 image: "https://stripe.com/img/documentation/checkout/marketplace.png",
                 locale: "auto",
                 panelLabel: "Subscribe For",
+                email: Laracasts.user.email,
                 token: (token) => {
                     console.log(token);
 

@@ -966,7 +966,8 @@ module.exports = Cancel;
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(10);
+__webpack_require__(10);
+module.exports = __webpack_require__(38);
 
 
 /***/ }),
@@ -995,7 +996,6 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-    // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = Laracasts.csrfToken;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -13317,6 +13317,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             image: "https://stripe.com/img/documentation/checkout/marketplace.png",
             locale: "auto",
             panelLabel: "Subscribe For",
+            email: Laracasts.user.email,
             token: function token(_token) {
                 console.log(_token);
 
@@ -13479,6 +13480,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5285b03e", module.exports)
   }
 }
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
