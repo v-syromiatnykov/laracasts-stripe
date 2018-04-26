@@ -44,5 +44,9 @@ trait Billable
     {
         return !! $this->stripe_active;
     }
-}
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+}

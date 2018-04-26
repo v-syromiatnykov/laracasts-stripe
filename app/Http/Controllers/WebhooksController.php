@@ -19,14 +19,30 @@ class WebhooksController extends Controller
         return response('Webhook Received');
     }
 
-    public function whenCustomerSubscriptionDeleted($payload)
-    {
-        User::byStripeId($payload['data']['object']['customer'])
-            ->deactivate();
-    }
-
     public function eventToMethod($event)
     {
         return 'when' . studly_case(str_replace('.', '_', $event));
+    }
+
+    public function whenCustomerSubscriptionDeleted($payload)
+    {
+        $this->retrieveUser($payload)->deactivate();
+    }
+
+    public function whenChargeSucceeded($payload)
+    {
+        $payment = $this->retrieveUser($payload)
+            ->payments()
+            ->create([
+                'amount'    => $payload['data']['object']['amount'],
+                'charge_id' => $payload['data']['object']['id']
+            ]);
+
+        var_dump($payment);
+    }
+
+    protected function retrieveUser($payload)
+    {
+        return User::byStripeId($payload['data']['object']['customer']);
     }
 }

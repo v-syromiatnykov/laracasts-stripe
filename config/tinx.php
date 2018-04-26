@@ -8,6 +8,7 @@ return [
     'model_paths' => [
         '/app',
         '/app/Models/*',
+        '/app/Billing/',
         // '/also/search/this/directory',
         // '/also/search/this/directory/recursively/*',
     ],
