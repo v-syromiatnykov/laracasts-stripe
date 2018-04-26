@@ -21,6 +21,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function byStripeId($stripeId)
+    {
+        return static::where('stripe_id', $stripeId)->firstOrFail();
+    }
+
     public function activate($customerId = null)
     {
         return $this->update([
