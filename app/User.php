@@ -26,11 +26,17 @@ class User extends Authenticatable
         return static::where('stripe_id', $stripeId)->firstOrFail();
     }
 
-    public function activate($customerId = null)
+    public function setStripeSubscription($id)
+    {
+        $this->stripe_subscription = $id;
+    }
+    
+    public function activate($customerId, $subscriptionId)
     {
         return $this->update([
-            'stripe_id' => $customerId ?? $this->stripe_id,
+            'stripe_id' => $customerId,
             'stripe_active' => true,
+            'stripe_subscription' => $subscriptionId,
             'subscription_end_at' => 0
         ]);
     }
