@@ -27,11 +27,13 @@ trait Billable
         ]);
     }
 
-    public function deactivate()
+    public function deactivate($endDate = null)
     {
+        $endDate = $endDate ?: Carbon::now();
+
         return $this->update([
             'stripe_active' => false,
-            'subscription_end_at' => Carbon::now()
+            'subscription_end_at' => $endDate
         ]);
     }
 

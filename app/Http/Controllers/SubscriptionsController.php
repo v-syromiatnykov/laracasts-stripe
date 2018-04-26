@@ -20,4 +20,11 @@ class SubscriptionsController extends Controller
             'status' => 'Success!'
         ];
     }
+
+    public function destroy()
+    {
+        auth()->user()->subscription()->cancel();
+
+        return back();
+    }
 }

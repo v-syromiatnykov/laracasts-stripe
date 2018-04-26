@@ -6,7 +6,8 @@
 //    return view('welcome', compact('plans'));
 //});
 
-Route::post('/purchases', 'SubscriptionsController@store');
+Route::post('/subscriptions', 'SubscriptionsController@store');
+Route::delete('/subscriptions', 'SubscriptionsController@destroy');
 
 Auth::routes();
 

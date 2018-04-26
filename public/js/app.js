@@ -13324,7 +13324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.stripeEmail = _token.email;
                 _this.stripeToken = _token.id;
 
-                axios.post('/purchases', _this.$data).then(function () {
+                axios.post('/subscriptions', _this.$data).then(function () {
                     return alert('Complete! Thanks for your payment!');
                 }).catch(function (error) {
                     return _this.status = error.response.data.status;

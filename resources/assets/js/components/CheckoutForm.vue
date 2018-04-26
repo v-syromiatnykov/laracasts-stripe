@@ -42,7 +42,7 @@
                     this.stripeEmail = token.email;
                     this.stripeToken = token.id;
 
-                    axios.post('/purchases', this.$data)
+                    axios.post('/subscriptions', this.$data)
                         .then(() => alert('Complete! Thanks for your payment!'))
                         .catch(error => this.status = error.response.data.status);
                 }
