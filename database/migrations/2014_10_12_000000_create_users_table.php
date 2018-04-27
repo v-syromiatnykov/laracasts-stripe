@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('stripe_id')->nullable();
+            $table->string('stripe_plan')->nullable();
             $table->boolean('stripe_active')->default(false);
             $table->string('stripe_subscription')->nullable();
             $table->timestamp('subscription_end_at')->nullable();

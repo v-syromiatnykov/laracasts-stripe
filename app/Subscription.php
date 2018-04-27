@@ -61,6 +61,22 @@ class Subscription
         $this->user->deactivate($endDate);
     }
 
+    public function resume()
+    {
+        // TODO
+        // check if the user is over threir grace period,
+        // and throw an exception.
+        $subscription = $this->retrieveStripeSubscription();
+
+        // TODO
+        // hardcoded, need to use stripe_plan column
+        $subscription->plan = 'monthly';
+
+        $subscription->save();
+
+        $this->user->activate();
+    }
+
     public function retrieveStripeSubscription()
     {
         return StripeSubscription::retrieve($this->user->stripe_subscription);

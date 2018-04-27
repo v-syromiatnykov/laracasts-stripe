@@ -35,6 +35,6 @@ class WebhooksControllerTest extends TestCase
             ]
         ]);
 
-        $this->assertFalse($user->fresh()->isSubscribed());
+        $this->assertFalse($user->fresh()->hasCanceled());
     }
 }

@@ -7,6 +7,7 @@
 //});
 
 Route::post('/subscriptions', 'SubscriptionsController@store');
+Route::patch('/subscriptions', 'SubscriptionsController@update');
 Route::delete('/subscriptions', 'SubscriptionsController@destroy');
 
 Auth::routes();

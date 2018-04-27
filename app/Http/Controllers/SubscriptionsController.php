@@ -21,6 +21,15 @@ class SubscriptionsController extends Controller
         ];
     }
 
+    public function update()
+    {
+        if (request('resume')) {
+            auth()->user()->subscription()->resume();
+        }
+
+        return back();
+    }
+
     public function destroy()
     {
         auth()->user()->subscription()->cancel();

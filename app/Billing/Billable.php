@@ -17,12 +17,12 @@ trait Billable
         $this->stripe_subscription = $id;
     }
 
-    public function activate($customerId, $subscriptionId)
+    public function activate($customerId = null, $subscriptionId = null)
     {
         return $this->update([
-            'stripe_id' => $customerId,
+            'stripe_id' => $customerId ?? $this->stripe_id,
             'stripe_active' => true,
-            'stripe_subscription' => $subscriptionId,
+            'stripe_subscription' => $subscriptionId ?? $this->stripe_subscription,
             'subscription_end_at' => 0
         ]);
     }
@@ -42,7 +42,7 @@ trait Billable
         return new Subscription($this);
     }
 
-    public function isSubscribed()
+    public function hasCanceled()
     {
         return !! $this->stripe_active;
     }

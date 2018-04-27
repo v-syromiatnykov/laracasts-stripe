@@ -25,6 +25,6 @@ class HomeController extends Controller
     {
         $plans = Plan::all();
 
-        return view('home', compact('plans'));
+        return view('home.home', compact('plans'));
     }
 }
