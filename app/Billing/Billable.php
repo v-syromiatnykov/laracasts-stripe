@@ -47,6 +47,22 @@ trait Billable
         return !! $this->stripe_active;
     }
 
+    public function isActive()
+    {
+        return is_null($this->subscription_end_at) || $this->isOnGracePeriod();
+    }
+
+    public function isOnGracePeriod()
+    {
+        $endsAt = $this->subscription_end_at;
+
+        if (! $endsAt) {
+            return false;
+        }
+
+        return Carbon::now()->lt(Carbon::instance($endsAt));
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

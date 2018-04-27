@@ -15,4 +15,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = [
+        'subscription_end_at'
+    ];
 }
