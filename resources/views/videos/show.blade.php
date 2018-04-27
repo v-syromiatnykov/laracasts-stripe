@@ -4,6 +4,6 @@
     <div class="container">
         <h1>A Premium Video</h1>
 
-        @include('videos.player')
+        @include('videos.' . $video->permissionStatusFor(auth()->user()))
     </div>
 @endsection
