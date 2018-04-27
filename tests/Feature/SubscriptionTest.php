@@ -25,7 +25,17 @@ class SubscriptionTest extends TestCase
             $this->fail('No stripe subs');
         }
     }
-    
+
+    protected function makeSubscribedUser($overrides = [])
+    {
+        $user = factory('App\User')->create($overrides);
+
+        $user->subscription()
+            ->create($this->getPlan(), $this->getStripeToken());
+
+        return $user;
+    }
+
     /** @test */
     public function it_cancels_a_user_subscription()
     {
@@ -42,12 +52,23 @@ class SubscriptionTest extends TestCase
         $this->assertNotNull($user->subscription_end_at);
     }
 
-    protected function makeSubscribedUser($overrides = [])
+    /** @test */
+    public function it_subscribes_a_user_using_a_coupon_code()
     {
-        $user = factory('App\User')->create($overrides);
+        $user = factory('App\User')->create();
 
-        $user->subscription()->create($this->getPlan(), $this->getStripeToken());
+        $user->subscription()
+            ->usingCoupon('TEST-COUPON')
+            ->create($this->getPlan(), $this->getStripeToken());
 
-        return $user;
+        $customer = $user->subscription()->retrieveStripeCustomer();
+
+        try {
+            $couponAppliedToStripe = $customer->invoices()->data[0]->discount->coupon->id;
+
+            $this->assertEquals('TEST-COUPON', $couponAppliedToStripe);
+        } catch (\Exception $e) {
+            $this->fail('Expected a coupon to be applied to the Stripe customer, but did not find one');
+        }
     }
 }

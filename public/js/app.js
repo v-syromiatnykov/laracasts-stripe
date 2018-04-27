@@ -13297,6 +13297,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['plans'],
@@ -13306,7 +13318,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             stripeEmail: '',
             stripeToken: '',
             plan: 1,
-            status: false
+            status: false,
+            coupon: ''
         };
     },
     created: function created() {
@@ -13404,58 +13417,94 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c(
-      "select",
-      {
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.plan,
+              expression: "plan"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { name: "plan" },
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.plan = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            }
+          }
+        },
+        _vm._l(_vm.plans, function(plan) {
+          return _c("option", { domProps: { value: plan.id } }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(plan.name) +
+                " — $" +
+                _vm._s(plan.price / 100) +
+                "\n            "
+            )
+          ])
+        })
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("input", {
         directives: [
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.plan,
-            expression: "plan"
+            value: _vm.coupon,
+            expression: "coupon"
           }
         ],
-        attrs: { name: "plan" },
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "coupon",
+          placeholder: "Have a coupon code?"
+        },
+        domProps: { value: _vm.coupon },
         on: {
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.plan = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.coupon = $event.target.value
           }
         }
-      },
-      _vm._l(_vm.plans, function(plan) {
-        return _c("option", { domProps: { value: plan.id } }, [
-          _vm._v(
-            "\n            " +
-              _vm._s(plan.name) +
-              " — $" +
-              _vm._s(plan.price / 100) +
-              "\n        "
-          )
-        ])
       })
-    ),
+    ]),
     _vm._v(" "),
-    _c(
-      "button",
-      {
-        attrs: { type: "submit" },
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            return _vm.subscribe($event)
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        {
+          staticClass: "form-control btn btn-info",
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.subscribe($event)
+            }
           }
-        }
-      },
-      [_vm._v("Subscribe")]
-    ),
+        },
+        [_vm._v("Subscribe\n        ")]
+      )
+    ]),
     _vm._v(" "),
     _c("p", {
       directives: [
