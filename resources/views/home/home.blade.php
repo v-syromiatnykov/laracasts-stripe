@@ -33,7 +33,7 @@
                     </div>
                 @endif
 
-                @unless(auth()->user()->hasCanceled() || auth()->user()->isOnGracePeriod())
+                @unless(auth()->user()->isSubscribed() || auth()->user()->isOnGracePeriod())
                     <div class="card">
                         <div class="card-header">Create a Subscription</div>
 
@@ -47,7 +47,7 @@
                     <div class="card-header">Payments</div>
 
                     <div class="card-body">
-                        @if(auth()->user()->payments)
+                        @if(auth()->user()->payments->count())
                             <ul class="list-group">
                                 @foreach(auth()->user()->payments as $payment)
                                     <li class="list-group-item">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                @if(auth()->user()->hasCanceled())
+                @if(auth()->user()->isSubscribed())
                     <div class="card mt-5">
                         <div class="card-header">Cancel</div>
 

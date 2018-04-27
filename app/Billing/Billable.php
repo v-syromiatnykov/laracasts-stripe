@@ -42,14 +42,14 @@ trait Billable
         return new Subscription($this);
     }
 
-    public function hasCanceled()
+    public function isSubscribed()
     {
         return !! $this->stripe_active;
     }
 
     public function isActive()
     {
-        return is_null($this->subscription_end_at) || $this->isOnGracePeriod();
+        return $this->isSubscribed() || $this->isOnGracePeriod();
     }
 
     public function isOnGracePeriod()

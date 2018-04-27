@@ -17,7 +17,7 @@ class SubscriptionTest extends TestCase
 
         $user = $user->fresh();
 
-        $this->assertTrue($user->hasCanceled());
+        $this->assertTrue($user->isSubscribed());
 
         try {
             $user->subscription()->retrieveStripeSubscription();
@@ -47,7 +47,7 @@ class SubscriptionTest extends TestCase
 
         $this->assertNotNull($stripeSubscription->canceled_at);
 
-        $this->assertFalse($user->hasCanceled());
+        $this->assertFalse($user->isSubscribed());
 
         $this->assertNotNull($user->subscription_end_at);
     }
